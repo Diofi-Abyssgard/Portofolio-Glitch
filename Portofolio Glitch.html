@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danang Setiawan | Portofolio Glitch</title>
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Layar Loading Glitch */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .glitch {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff00c1;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 8s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+            animation: glitch-anim2 3s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(31px, 9999px, 94px, 0); }
+            20% { clip: rect(62px, 9999px, 42px, 0); }
+            40% { clip: rect(16px, 9999px, 78px, 0); }
+            60% { clip: rect(87px, 9999px, 11px, 0); }
+            80% { clip: rect(5px, 9999px, 60px, 0); }
+            100% { clip: rect(40px, 9999px, 91px, 0); }
+        }
+
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            20% { clip: rect(20px, 9999px, 50px, 0); }
+            40% { clip: rect(80px, 9999px, 90px, 0); }
+            60% { clip: rect(10px, 9999px, 30px, 0); }
+            80% { clip: rect(50px, 9999px, 70px, 0); }
+            100% { clip: rect(0, 9999px, 40px, 0); }
+        }
+
+        .card-glitch:hover {
+            box-shadow: -5px 0px 0px #00fff9, 5px 0px 0px #ff00c1;
+            transform: translateY(-5px);
+            transition: all 0.5s ease;
+        }
+
+        .bg-grid {
+            background-image: linear-gradient(to right, #1a1a1a 1px, transparent 1px),
+                              linear-gradient(to bottom, #1a1a1a 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .scanline {
+            width: 100%;
+            height: 100px;
+            z-index: 10;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 255, 249, 0.2) 50%, rgba(0, 0, 0, 0) 100%);
+            opacity: 0.1;
+            position: absolute;
+            bottom: 100%;
+            animation: scanline 12s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { bottom: 100%; }
+            100% { bottom: -100%; }
+        }
+
+        /* ✨ Area Teks Error Bergerak */
+        .error-tag-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            height: 100px;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .error-tag {
+            font-family: monospace;
+            font-size: 12px;
+            color: #ff00c1;
+            background: rgba(255, 0, 193, 0.1);
+            padding: 4px 12px;
+            border: 1px solid #ff00c1;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            white-space: nowrap;
+            position: absolute;
+            /* Kedap-kedip diperhalus (Soft Blink) */
+            animation-name: soft-blink;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+        }
+
+        /* Gerakan kiri ke kanan */
+        .tag-l-r {
+            left: -200px;
+            animation: move-l-r 12s linear infinite, soft-blink 2s infinite ease-in-out;
+        }
+
+        /* Gerakan kanan ke kiri */
+        .tag-r-l {
+            right: -200px;
+            animation: move-r-l 15s linear infinite, soft-blink 2.5s infinite ease-in-out;
+        }
+
+        @keyframes move-l-r {
+            from { left: -200px; }
+            to { left: 100%; }
+        }
+
+        @keyframes move-r-l {
+            from { right: -200px; }
+            to { right: 100%; }
+        }
+
+        /* Animasi Kedap-kedip yang lebih halus */
+        @keyframes soft-blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+    </style>
+</head>
+<body class="bg-grid">
+
+    <!-- Layar Loading -->
+    <div id="loader">
+        <div class="text-center">
+            <h1 class="text-4xl font-bold glitch text-white mb-2" data-text="SYSTEM ERROR_">SYSTEM ERROR_</h1>
+            <p class="font-mono text-cyan-400 animate-pulse text-sm">MEMULAI URUTAN BOOTING...</p>
+        </div>
+        <div class="scanline"></div>
+    </div>
+
+    <!-- Navigasi -->
+    <nav class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold tracking-tighter glitch" data-text="DS">DS</div>
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+            <div class="hidden md:flex space-x-8 font-medium">
+                <a href="#home" class="hover:text-cyan-400 transition">Beranda</a>
+                <a href="#about" class="hover:text-cyan-400 transition">Tentang</a>
+                <a href="#projects" class="hover:text-cyan-400 transition">Proyek</a>
+                <a href="#blog" class="hover:text-cyan-400 transition">Blog</a>
+                <a href="#contact" class="hover:text-cyan-400 transition">Kontak</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Bagian Hero -->
+    <section id="home" class="min-h-screen flex items-center justify-center pt-20 px-6">
+        <div class="text-center relative">
+            <div class="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-500/10 blur-[100px] rounded-full"></div>
+            <h2 class="text-cyan-400 font-mono tracking-widest mb-4 uppercase">Sistem Siap_</h2>
+            <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-6">
+                <span class="block">Halo, Saya</span>
+                <span class="glitch text-white" data-text="Danang Setiawan">Danang Setiawan</span>
+            </h1>
+            <p class="max-w-2xl mx-auto text-gray-400 text-lg md:text-xl mb-10">
+                Seorang Creative Web Developer yang hobi ngulik kode dan bikin tampilan web jadi lebih "hidup". Fokus saya adalah membangun pengalaman digital yang unik dan fungsional.
+            </p>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+                <a href="#contact" class="px-8 py-3 bg-white text-black font-bold rounded-sm hover:bg-cyan-400 hover:scale-105 transition-all duration-300">
+                    IKUTI SAYA
+                </a>
+                <a href="#projects" class="px-8 py-3 border border-white/20 font-bold rounded-sm hover:border-cyan-400 transition-all">
+                    LIHAT KARYA
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bagian Tentang -->
+    <section id="about" class="py-24 px-6 bg-black/50 backdrop-blur-sm">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-8 border-b-2 border-cyan-400 inline-block pb-2">SIAPA SAYA?</h2>
+            <p class="text-gray-300 leading-relaxed text-lg">
+                Bukan sekadar tukang ketik kode. Saya adalah pemecah masalah yang percaya bahwa setiap baris kode punya tujuan. Dengan pengalaman di berbagai proyek web, saya memastikan produk yang dihasilkan tidak hanya cantik dipandang, tapi juga punya performa tinggi dan ramah pengguna.
+            </p>
+        </div>
+    </section>
+
+    <!-- Bagian Proyek -->
+    <section id="projects" class="py-24 px-6 max-w-6xl mx-auto">
+        <h2 class="text-3xl font-bold mb-12 text-center glitch" data-text="PROYEK TERPILIH">PROYEK TERPILIH</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-[#111] border border-white/10 p-4 card-glitch group relative overflow-hidden">
+                <div class="aspect-video bg-gray-900 mb-4 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=600" alt="Dashboard Neon" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-cyan-500/10 mix-blend-overlay"></div>
+                </div>
+                <h3 class="text-xl font-bold text-cyan-400 mb-2 underline">Neon Dashboard</h3>
+                <p class="text-gray-400 text-sm">Monitoring sistem dengan antarmuka futuristik bertema cyber.</p>
+            </div>
+            <div class="bg-[#111] border border-white/10 p-4 card-glitch group overflow-hidden">
+                <div class="aspect-video bg-gray-900 mb-4 overflow-hidden relative">
+                    <div class="grid grid-cols-2 grid-rows-2 h-full gap-1">
+                        <img src="https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?auto=format&fit=crop&q=80&w=300" alt="Laptop Gaming" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                        <img src="https://images.unsplash.com/photo-1591405351990-4726e331f141?auto=format&fit=crop&q=80&w=300" alt="Unit Prosesor CPU" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                        <img src="https://images.unsplash.com/photo-1587831990711-23ca6441447b?auto=format&fit=crop&q=80&w=300" alt="PC Desktop" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                        <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=300" alt="Server Hardware" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-cyan-500/20 to-transparent opacity-50 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                </div>
+                <h3 class="text-xl font-bold text-cyan-400 mb-2 underline">Minimalist Store</h3>
+                <p class="text-gray-400 text-sm">E-commerce khusus perangkat keras IT kelas atas dengan performa tinggi.</p>
+            </div>
+            <div class="bg-[#111] border border-white/10 p-4 card-glitch group overflow-hidden">
+                <div class="aspect-video bg-gray-900 mb-4 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=600" alt="Mesin Sirkuit Glitch" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-blue-500/10 mix-blend-overlay"></div>
+                </div>
+                <h3 class="text-xl font-bold text-cyan-400 mb-2 underline">Static Glitch Engine</h3>
+                <p class="text-gray-400 text-sm">Library animasi distorsi untuk elemen visual web modern.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bagian Blog -->
+    <section id="blog" class="py-24 px-6 bg-[#050505] relative overflow-hidden">
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h2 class="text-3xl font-bold mb-4 glitch" data-text="JURNAL_">JURNAL_</h2>
+            <p class="text-gray-500">Sedang dalam proses penulisan ide-ide segar. Tunggu tanggal mainnya!</p>
+            
+            <!-- ✨ Teks Error Bergerak Berlawanan Arah -->
+            <div class="error-tag-container mt-8">
+                <span class="error-tag tag-l-r top-2">FATAL_ERROR_V.404</span>
+                <span class="error-tag tag-r-l bottom-2">SYSTEM_REBOOTING</span>
+            </div>
+        </div>
+        
+        <div class="absolute top-0 left-0 w-full h-full pointer-events-none flex items-center justify-around opacity-5">
+            <span class="text-9xl font-bold select-none">BUG</span>
+            <span class="text-9xl font-bold select-none">404</span>
+        </div>
+    </section>
+
+    <!-- Bagian Kontak -->
+    <section id="contact" class="py-24 px-6">
+        <div class="max-w-4xl mx-auto bg-[#111] border border-cyan-400/30 p-8 md:p-12 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-16 h-16 bg-cyan-400/20 rotate-45 translate-x-8 -translate-y-8"></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl font-bold mb-6">AYO NGOBROL!</h2>
+                    <p class="text-gray-400 mb-8">Punya proyek seru atau cuma mau tanya-tanya? Silakan hubungi saya lewat saluran di bawah.</p>
+                    <div class="space-y-4">
+                        <p class="flex items-center gap-3"><span class="text-cyan-400 font-mono">[LOKASI]</span> Jakarta, Indonesia</p>
+                        <p class="flex items-center gap-3"><span class="text-cyan-400 font-mono">[EMAIL]</span> hai.zxr@gmail.com</p>
+                    </div>
+                </div>
+                <div class="flex flex-col space-y-4">
+                    <h4 class="font-bold text-lg mb-2">SOSIAL MEDIA:</h4>
+                    <a href="https://wa.me/089522581761" class="p-3 border border-white/10 hover:border-green-500 hover:bg-green-500/5 transition flex justify-between group">
+                        WhatsApp <span class="group-hover:translate-x-2 transition">-></span>
+                    </a>
+                    <a href="https://www.instagram.com/zxr._.75/" class="p-3 border border-white/10 hover:border-pink-500 hover:bg-pink-500/5 transition flex justify-between group">
+                        Instagram <span class="group-hover:translate-x-2 transition">-></span>
+                    </a>
+                    <a href="https://www.tiktok.com/@zxr_75" class="p-3 border border-white/10 hover:border-cyan-400 hover:bg-cyan-400/5 transition flex justify-between group">
+                        TikTok <span class="group-hover:translate-x-2 transition">-></span>
+                    </a>
+                    <a href="https://github.com/Diofi-Abyssgard" class="p-3 border border-white/10 hover:border-white hover:bg-white/5 transition flex justify-between group">
+                        Github <span class="group-hover:translate-x-2 transition">-></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 text-center border-t border-white/5 text-gray-600 text-sm">
+        <p>&copy; 2025 DANANG_SETIAWAN. SELURUH HAK CIPTA DILINDUNGI. [STATUS: ONLINE]</p>
+    </footer>
+
+    <script>
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => { loader.style.display = 'none'; }, 500);
+            }, 2000);
+        });
+        const btn = document.getElementById('menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const links = document.querySelectorAll('.mobile-link');
+        btn.addEventListener('click', () => { menu.classList.toggle('hidden'); });
+        links.forEach(link => { link.addEventListener('click', () => { menu.classList.add('hidden'); }); });
+    </script>
+</body>
+</html>
